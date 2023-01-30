@@ -13,10 +13,13 @@ body{
   display: grid;
 }
 
-.quiz-card{
+.card-section{
+  place-self: center;
+}
+
+.quiz-card, .score-card{
   background-color: white;
   width: 500px;
   height: 300px;
   border-radius: 15px;
-  place-self: center;
 }
