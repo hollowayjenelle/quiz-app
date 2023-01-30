@@ -16,17 +16,21 @@ const Card : FC = () => {
     let questionIndex = questionCount - 1
 
     useEffect(() =>{
-        fetch('https://the-trivia-api.com/api/questions?categories=music&limit=20&difficulty=easy')
+        fetch('https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy')
         .then(response => response.json())
         .then(res => setQuestions(res))
+        setCurrentQuestion(questions[questionCount - 1])
     }, [])
 
+    function changeQuestion(){
+
+    }
     console.log(questions)
-    
     return (
         <div className='quiz-card'>
             <h3>Question {questionCount} out of {questions.length}</h3>
             <p>{questions[questionIndex]?.question}</p>
+            <button>Next Question</button>
         </div>
     );
 };
