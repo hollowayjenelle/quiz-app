@@ -9,7 +9,7 @@ import {Question} from './interfaces'
 
 const Card : FC = () => {
     const [questions, setQuestions] = useState<Question[]>([])
-    const [questionCount, setQuestionCount] = useState<number>(1)
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
     const [showScore, setShowScore] = useState<boolean>(false)
 
@@ -21,15 +21,15 @@ const Card : FC = () => {
     
 
     function changeQuestion(){
-        if(questionCount < questions.length){
-            setQuestionCount(prevCount => prevCount + 1)
+        if(currentQuestionIndex < questions.length){
+            setCurrentQuestionIndex(prevCount => prevCount + 1)
         }
     }
 
     function displayScore(){
         setShowScore(prevVal => !prevVal)
     }
-    console.log(questions)
+    
     return (
         <div className='card-section'>
             {(showScore) ? 
@@ -39,9 +39,9 @@ const Card : FC = () => {
                 </div> 
             :   
                 <div className='quiz-card'>
-                    <h3>Question {questionCount} out of {questions.length}</h3>
-                    <p>{questions[questionCount - 1]?.question}</p>
-                    {questionCount < questions.length ? <button onClick={changeQuestion}>Next Question</button> : <button onClick={displayScore}>Show Score</button>}
+                    <h3>Question {currentQuestionIndex + 1} out of {questions.length}</h3>
+                    <p>{questions[currentQuestionIndex]?.question}</p>
+                    {currentQuestionIndex < questions.length-1 ? <button onClick={changeQuestion}>Next Question</button> : <button onClick={displayScore}>Show Score</button>}
                 </div>
             }
         </div>
