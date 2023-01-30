@@ -10,4 +10,13 @@ body{
   width: 100vw;
   height: 100vh;
   background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+  display: grid;
+}
+
+.quiz-card{
+  background-color: white;
+  width: 500px;
+  height: 300px;
+  border-radius: 15px;
+  place-self: center;
 }

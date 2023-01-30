@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import Card from './components/Card';
 
 function App() {
-  const APILink = 'https://the-trivia-api.com/api/questions'
   return (
     <div className="App">
+      <Card/>
     </div>
   );
 }
