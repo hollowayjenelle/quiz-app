@@ -6,6 +6,7 @@ const Card : FC = () => {
     const [questionCount, setQuestionCount] = useState(1)
     const [score, setScore] = useState(0)
     const [showScore, setShowScore] = useState(false)
+    let questionIndex = questionCount - 1
 
     useEffect(() =>{
         fetch('https://the-trivia-api.com/api/questions?categories=music&limit=5&difficulty=easy')
@@ -13,11 +14,12 @@ const Card : FC = () => {
         .then(res => setQuestions(res))
     }, [])
 
-    
+
+
     console.log(questions)
     return (
         <div className='quiz-card'>
-            
+            <h3>Question {questionCount} out of {questions.length}</h3>
         </div>
     );
 };
