@@ -12,6 +12,8 @@ const Card : FC = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
     const [showScore, setShowScore] = useState<boolean>(false)
+    const answers = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(',')
+    
 
     useEffect(() =>{
         fetch('https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy')
@@ -29,7 +31,7 @@ const Card : FC = () => {
     function displayScore(){
         setShowScore(prevVal => !prevVal)
     }
-    
+
     return (
         <div className='card-section'>
             {(showScore) ? 
