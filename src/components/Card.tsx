@@ -40,12 +40,13 @@ const Card : FC = () => {
         event.preventDefault()
         const target = event.target as HTMLInputElement
         setCurrentAnswer(target.value)
-        if(currentAnswer === questions[currentQuestionIndex].correctAnswer){
+        if(currentAnswer == questions[currentQuestionIndex].correctAnswer){
             setScore(prevScore => prevScore + 1)
         }
     }
 
     console.log(answers)
+    console.log(currentAnswer)
 
     return (
         <div className='card-section'>
