@@ -1,10 +1,9 @@
 /**
  * TODO
  * Create 'start quiz' card in App.tsx to cover the quiz card
- * Create show score card - DONE
- * Create array with both correct and incorrect answers and shuffle them
+ * Fix the bug that makes the answers change onclick
  */
-import {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {Question} from './interfaces'
 import AnswerButtons from './AnswerButtons';
 
@@ -12,6 +11,7 @@ const Card : FC = () => {
     const [questions, setQuestions] = useState<Question[]>([])
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
+    const [currentAnswer, setCurrentAnswer] = useState<string>('')
     const [showScore, setShowScore] = useState<boolean>(false)
     const answers = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(',')
     answers?.sort(() => 0.5 - Math.random())
@@ -23,7 +23,7 @@ const Card : FC = () => {
     }, [])
     
     const answersBtns = answers.map( ans => {
-        return <AnswerButtons key={ans} answer={ans}/>
+        return <AnswerButtons key={answers.indexOf(ans)} answer={ans}/>
     })
 
     function changeQuestion(){
@@ -34,6 +34,15 @@ const Card : FC = () => {
 
     function displayScore(){
         setShowScore(prevVal => !prevVal)
+    }
+
+    function getAnswer(event: React.SyntheticEvent){
+        event.preventDefault()
+        const target = event.target as HTMLInputElement
+        setCurrentAnswer(target.value)
+        if(currentAnswer === questions[currentQuestionIndex].correctAnswer){
+            setScore(prevScore => prevScore + 1)
+        }
     }
 
     console.log(answers)
@@ -49,7 +58,7 @@ const Card : FC = () => {
                 <div className='quiz-card'>
                     <h3>Question {currentQuestionIndex + 1} out of {questions.length}</h3>
                     <p>{questions[currentQuestionIndex]?.question}</p>
-                    <div>
+                    <div onChange={getAnswer}>
                         {answersBtns}
                     </div>
                     {currentQuestionIndex < questions.length-1 ? <button onClick={changeQuestion}>Next Question</button> : <button onClick={displayScore}>Show Score</button>}
