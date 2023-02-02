@@ -10,3 +10,7 @@ export interface Question{
     regions: [],
     isNiche: boolean
 }
+
+export interface Props{
+    answer: string
+}

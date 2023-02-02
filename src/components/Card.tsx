@@ -6,6 +6,7 @@
  */
 import {FC, useState, useEffect} from 'react';
 import {Question} from './interfaces'
+import AnswerButtons from './AnswerButtons';
 
 const Card : FC = () => {
     const [questions, setQuestions] = useState<Question[]>([])
@@ -13,7 +14,7 @@ const Card : FC = () => {
     const [score, setScore] = useState<number>(0)
     const [showScore, setShowScore] = useState<boolean>(false)
     const answers = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(',')
-    
+    answers?.sort(() => 0.5 - Math.random())
 
     useEffect(() =>{
         fetch('https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy')
@@ -21,6 +22,9 @@ const Card : FC = () => {
         .then(res => setQuestions(res))
     }, [])
     
+    const answersBtns = answers.map( ans => {
+        return <AnswerButtons key={ans} answer={ans}/>
+    })
 
     function changeQuestion(){
         if(currentQuestionIndex < questions.length){
@@ -31,6 +35,8 @@ const Card : FC = () => {
     function displayScore(){
         setShowScore(prevVal => !prevVal)
     }
+
+    console.log(answers)
 
     return (
         <div className='card-section'>
@@ -43,6 +49,9 @@ const Card : FC = () => {
                 <div className='quiz-card'>
                     <h3>Question {currentQuestionIndex + 1} out of {questions.length}</h3>
                     <p>{questions[currentQuestionIndex]?.question}</p>
+                    <div>
+                        {answersBtns}
+                    </div>
                     {currentQuestionIndex < questions.length-1 ? <button onClick={changeQuestion}>Next Question</button> : <button onClick={displayScore}>Show Score</button>}
                 </div>
             }
