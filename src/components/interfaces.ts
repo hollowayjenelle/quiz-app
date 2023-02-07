@@ -1,3 +1,5 @@
+import { SyntheticEvent } from "react"
+
 export interface Question{
     category: string,
     id: string,
@@ -12,5 +14,7 @@ export interface Question{
 }
 
 export interface Props{
-    answer: string
+    answer: string,
+    answerState: string,
+    changeFunc: (event: SyntheticEvent) => void
 }
