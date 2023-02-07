@@ -3,7 +3,7 @@
  * Create 'start quiz' card in App.tsx to cover the quiz card
  * Fix the bug that makes the answers change onclick
  */
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useMemo} from 'react';
 import {Question} from './interfaces'
 import AnswerButtons from './AnswerButtons';
 
@@ -13,8 +13,8 @@ const Card : FC = () => {
     const [score, setScore] = useState<number>(0)
     const [currentAnswer, setCurrentAnswer] = useState<string>('')
     const [showScore, setShowScore] = useState<boolean>(false)
-    const answers = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(/,(?! )/)
-    
+    // eslint-disable-next-line
+    let answers : string[] = useMemo(() => test(), [currentQuestionIndex])
 
     useEffect(() =>{
         fetch('https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy')
@@ -22,9 +22,11 @@ const Card : FC = () => {
         .then(res => setQuestions(res))
     }, [])
 
-    useEffect(() => {
-        answers?.sort(() => 0.5 - Math.random())
-    }, [currentQuestionIndex, answers])
+    function test(){
+        const answerArr = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(/,(?! )/)
+        answerArr?.sort(() => 0.5 - Math.random() )
+        return answerArr
+    }
     
     const answersBtns = answers.map( ans => {
         return <AnswerButtons 
