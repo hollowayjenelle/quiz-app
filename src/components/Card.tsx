@@ -13,18 +13,14 @@ const Card : FC = () => {
     const [score, setScore] = useState<number>(0)
     const [currentAnswer, setCurrentAnswer] = useState<string>('')
     const [showScore, setShowScore] = useState<boolean>(false)
-    const answers = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(',')
-    answers?.sort(() => 0.5 - Math.random())
+    
 
     useEffect(() =>{
-        fetch('https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy')
+        fetch('https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple')
         .then(response => response.json())
         .then(res => setQuestions(res))
     }, [])
     
-    const answersBtns = answers.map( ans => {
-        return <AnswerButtons key={answers.indexOf(ans)} answer={ans}/>
-    })
 
     function changeQuestion(){
         if(currentQuestionIndex < questions.length){
@@ -36,18 +32,9 @@ const Card : FC = () => {
         setShowScore(prevVal => !prevVal)
     }
 
-    function getAnswer(event: React.SyntheticEvent){
-        event.preventDefault()
-        const target = event.target as HTMLInputElement
-        setCurrentAnswer(target.value)
-        if(currentAnswer == questions[currentQuestionIndex].correctAnswer){
-            setScore(prevScore => prevScore + 1)
-        }
-    }
 
-    console.log(answers)
-    console.log(currentAnswer)
-
+   
+    console.log(questions)
     return (
         <div className='card-section'>
             {(showScore) ? 
@@ -59,8 +46,7 @@ const Card : FC = () => {
                 <div className='quiz-card'>
                     <h3>Question {currentQuestionIndex + 1} out of {questions.length}</h3>
                     <p>{questions[currentQuestionIndex]?.question}</p>
-                    <div onChange={getAnswer}>
-                        {answersBtns}
+                    <div>
                     </div>
                     {currentQuestionIndex < questions.length-1 ? <button onClick={changeQuestion}>Next Question</button> : <button onClick={displayScore}>Show Score</button>}
                 </div>
