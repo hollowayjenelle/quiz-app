@@ -65,7 +65,7 @@ const Card : FC = () => {
     function getAnswer(event: React.SyntheticEvent){
         event.preventDefault()
         const target = event.target as HTMLInputElement
-        setCurrentAnswer(target.value)
+        setCurrentAnswer(prevValue => target.value)
     }
 
     function resetAnswer(){
@@ -88,7 +88,7 @@ const Card : FC = () => {
                 <div className='quiz-card'>
                     <h3>Question {currentQuestionIndex + 1} out of {questions.length}</h3>
                     <p>{questions[currentQuestionIndex]?.question}</p>
-                    <div onChange={getAnswer}>
+                    <div>
                         {answersBtns}
                     </div>
                     {currentQuestionIndex < questions.length-1 ? <button onClick={changeQuestion}>Next Question</button> : <button onClick={displayScore}>Show Score</button>}
