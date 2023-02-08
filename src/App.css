@@ -13,11 +13,11 @@ body{
   display: grid;
 }
 
-.card-section{
+.card-section, .start-card{
   place-self: center;
 }
 
-.quiz-card, .score-card{
+.quiz-card, .score-card, .start-card{
   background-color: white;
   width: 500px;
   height: 300px;
