@@ -1,9 +1,9 @@
 /**
  * TODO
- * SORT OUT HOW TO DISPLAY THE ANSWERS
+ * Fix score bug
  * 
  */
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useMemo} from 'react';
 import {Question} from './interfaces'
 import AnswerButtons from './AnswerButtons';
 
@@ -33,7 +33,7 @@ const Card : FC = () => {
         return arr
     }
 
-    const shuffledAnswers = shuffle(allAnswers)
+    const shuffledAnswers = useMemo(() => shuffle(allAnswers), [questions[currentQuestionIndex]])
 
     //answerArr?.sort(() => 0.5 - Math.random() )
     const answersBtns = shuffledAnswers?.map( ans => {
