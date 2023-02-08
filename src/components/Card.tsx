@@ -33,6 +33,7 @@ const Card : FC = () => {
         return arr
     }
 
+    // eslint-disable-next-line
     const shuffledAnswers = useMemo(() => shuffle(allAnswers), [questions[currentQuestionIndex]])
 
     //answerArr?.sort(() => 0.5 - Math.random() )
@@ -63,7 +64,6 @@ const Card : FC = () => {
     }
 
     function getAnswer(event: React.SyntheticEvent){
-        event.preventDefault()
         const target = event.target as HTMLInputElement
         setCurrentAnswer(prevValue => target.value)
     }
