@@ -36,7 +36,6 @@ const Card : FC = () => {
     // eslint-disable-next-line
     const shuffledAnswers = useMemo(() => shuffle(allAnswers), [questions[currentQuestionIndex]])
 
-    //answerArr?.sort(() => 0.5 - Math.random() )
     const answersBtns = shuffledAnswers?.map( ans => {
         return <AnswerButtons 
         key={ans} 
@@ -73,11 +72,6 @@ const Card : FC = () => {
     function resetAnswer(){
         setCurrentAnswer('')
     }
-
-    console.log(allAnswers)
-    console.log(shuffledAnswers)
-    console.log(currentAnswer)
-    console.log(questions[currentQuestionIndex]?.correctAnswer)
 
     return (
         <div className='card-section'>
