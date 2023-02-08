@@ -1,7 +1,6 @@
 /**
  * TODO
- * Fix shuffle answer array and bug that shuffles on click
- * Radio button is not being selected -fix
+ * SORT OUT HOW TO DISPLAY THE ANSWERS
  * 
  */
 import React, {FC, useState, useEffect, useMemo} from 'react';
@@ -10,33 +9,31 @@ import AnswerButtons from './AnswerButtons';
 
 const Card : FC = () => {
     const [questions, setQuestions] = useState<Question[]>([])
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(-1)
     const [score, setScore] = useState<number>(0)
     const [currentAnswer, setCurrentAnswer] = useState<string>('')
     const [showScore, setShowScore] = useState<boolean>(false)
-    const [allAnswers, setAllAnswers] = useState<string[]>([])
+    
     // eslint-disable-next-line
+    
 
     useEffect(() =>{
         fetch('https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy')
         .then(response => response.json())
         .then(res => setQuestions(res))
+        setCurrentQuestionIndex(prevVal => prevVal + 1)
+        console.log('Questions loaded')
     }, [])
 
-    useEffect(() => {
-        const answers = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(/,(?! )/)
-        answers.sort(() => 0.5 - Math.random() )
-        setAllAnswers(answers)
-    }, [currentQuestionIndex])
     
     //answerArr?.sort(() => 0.5 - Math.random() )
-    const answersBtns = allAnswers.map( ans => {
+    /*const answersBtns = answers.map( ans => {
         return <AnswerButtons 
-        key={allAnswers.indexOf(ans)} 
+        key={ans} 
         answer={ans} 
         answerState={currentAnswer}
         changeFunc={getAnswer}/>
-    })
+    })*/
 
     function assignPoint(){
         if(currentAnswer === questions[currentQuestionIndex].correctAnswer){
@@ -66,7 +63,8 @@ const Card : FC = () => {
         setCurrentAnswer('')
     }
 
-    console.log(allAnswers)
+    //console.log(answers)
+    console.log(currentQuestionIndex)
     console.log(currentAnswer)
     console.log(questions[currentQuestionIndex]?.correctAnswer)
 
@@ -82,7 +80,7 @@ const Card : FC = () => {
                     <h3>Question {currentQuestionIndex + 1} out of {questions.length}</h3>
                     <p>{questions[currentQuestionIndex]?.question}</p>
                     <div onChange={getAnswer}>
-                        {answersBtns}
+                        {/*answersBtns*/}
                     </div>
                     {currentQuestionIndex < questions.length-1 ? <button onClick={changeQuestion}>Next Question</button> : <button onClick={displayScore}>Show Score</button>}
                 </div>
