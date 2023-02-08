@@ -1,7 +1,8 @@
 /**
  * TODO
- * Create 'start quiz' card in App.tsx to cover the quiz card
- * Fix the bug that makes the answers change onclick
+ * Fix shuffle answer array and bug that shuffles on click
+ * Radio button is not being selected -fix
+ * 
  */
 import React, {FC, useState, useEffect, useMemo} from 'react';
 import {Question} from './interfaces'
@@ -13,8 +14,8 @@ const Card : FC = () => {
     const [score, setScore] = useState<number>(0)
     const [currentAnswer, setCurrentAnswer] = useState<string>('')
     const [showScore, setShowScore] = useState<boolean>(false)
+    const [allAnswers, setAllAnswers] = useState<string[]>([])
     // eslint-disable-next-line
-    let answers : string[] = useMemo(() => test(), [currentQuestionIndex])
 
     useEffect(() =>{
         fetch('https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy')
@@ -22,15 +23,16 @@ const Card : FC = () => {
         .then(res => setQuestions(res))
     }, [])
 
-    function test(){
-        const answerArr = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(/,(?! )/)
-        answerArr?.sort(() => 0.5 - Math.random() )
-        return answerArr
-    }
+    useEffect(() => {
+        const answers = (questions[currentQuestionIndex]?.incorrectAnswers + ',' + questions[currentQuestionIndex]?.correctAnswer)?.split(/,(?! )/)
+        answers.sort(() => 0.5 - Math.random() )
+        setAllAnswers(answers)
+    }, [currentQuestionIndex])
     
-    const answersBtns = answers.map( ans => {
+    //answerArr?.sort(() => 0.5 - Math.random() )
+    const answersBtns = allAnswers.map( ans => {
         return <AnswerButtons 
-        key={answers.indexOf(ans)} 
+        key={allAnswers.indexOf(ans)} 
         answer={ans} 
         answerState={currentAnswer}
         changeFunc={getAnswer}/>
@@ -64,7 +66,7 @@ const Card : FC = () => {
         setCurrentAnswer('')
     }
 
-    console.log(answers)
+    console.log(allAnswers)
     console.log(currentAnswer)
     console.log(questions[currentQuestionIndex]?.correctAnswer)
 
