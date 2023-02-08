@@ -1,6 +1,6 @@
 /**
  * TODO
- * Fix score bug
+ * Add CSS
  * 
  */
 import React, {FC, useState, useEffect, useMemo} from 'react';
@@ -47,6 +47,7 @@ const Card : FC = () => {
 
     function assignPoint(){
         if(currentAnswer === questions[currentQuestionIndex].correctAnswer){
+            console.log('Score increased')
             setScore(prevScore => prevScore + 1)
         }
     }
@@ -60,6 +61,7 @@ const Card : FC = () => {
     }
 
     function displayScore(){
+        assignPoint()
         setShowScore(prevVal => !prevVal)
     }
 
