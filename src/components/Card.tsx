@@ -85,20 +85,26 @@ const Card: FC = () => {
     <div className="card-section">
       {showScore ? (
         <div className="score-card">
-          <h2>Your score is {score}</h2>
-          <h3>{score}</h3>
+          <h2 className="score-header">Your score is:</h2>
+          <h3 className="score">{score}</h3>
         </div>
       ) : (
         <div className="quiz-card">
-          <h3>
+          <h3 className="question-header">
             Question {currentQuestionIndex + 1} out of {questions.length}
           </h3>
-          <p>{questions[currentQuestionIndex]?.question}</p>
-          <div>{answersBtns}</div>
+          <p className="question">
+            {questions[currentQuestionIndex]?.question}
+          </p>
+          <div className="answer-section">{answersBtns}</div>
           {currentQuestionIndex < questions.length - 1 ? (
-            <button onClick={changeQuestion}>Next Question</button>
+            <button className="quiz-btn" onClick={changeQuestion}>
+              Next Question
+            </button>
           ) : (
-            <button onClick={displayScore}>Show Score</button>
+            <button className="quiz-btn" onClick={displayScore}>
+              Show Score
+            </button>
           )}
         </div>
       )}
