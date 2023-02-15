@@ -28,6 +28,10 @@ body{
   text-align: center;
 }
 
+.quiz-card{
+  height: 400px;
+}
+
 .start-card{
   padding: 70px 0;
 }
