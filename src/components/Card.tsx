@@ -79,6 +79,8 @@ const Card: FC = () => {
     setCurrentAnswer("");
   }
 
+  console.log(questions[currentQuestionIndex]?.correctAnswer);
+
   return (
     <div className="card-section">
       {showScore ? (
