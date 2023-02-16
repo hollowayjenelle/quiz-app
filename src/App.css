@@ -29,7 +29,7 @@ body{
 }
 
 .quiz-card{
-  height: 400px;
+  height: 500px;
 }
 
 .start-card{
@@ -65,5 +65,26 @@ body{
   border: 1px solid black;
   width: 450px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
+.radio-input{
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-btn{
+  margin-bottom: 10px;
+  width: 450px;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.radio-btn-label{
+  background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+  color: white;
+  padding: 10px 70px;
+  border-radius: 15px;
+}
