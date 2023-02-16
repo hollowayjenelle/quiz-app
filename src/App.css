@@ -19,7 +19,7 @@ body{
   place-self: center;
 }
 
-.quiz-card, .score-card, .start-card{
+.quiz-card, .score-card, .start-card, .loading-card{
   background-color: white;
   width: 500px;
   height: 300px;
