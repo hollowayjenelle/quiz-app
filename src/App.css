@@ -80,6 +80,7 @@ body{
   width: 450px;
   border: 1px solid black;
   padding: 20px;
+  overflow-wrap: break-word;
 }
 
 .radio-btn-label{
@@ -87,4 +88,10 @@ body{
   color: white;
   padding: 10px 70px;
   border-radius: 15px;
+}
+
+.radio-btn input[type="radio"]:checked + label{
+  background: white;
+  color: black;
+  border: 2px solid #3F5EFB;
 }
