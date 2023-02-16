@@ -14,6 +14,7 @@ const Card: FC = () => {
   const [score, setScore] = useState<number>(0);
   const [currentAnswer, setCurrentAnswer] = useState<string>("");
   const [showScore, setShowScore] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const incorrectAnswers = questions[currentQuestionIndex]?.incorrectAnswers;
   const correctAnswer = questions[currentQuestionIndex]?.correctAnswer;
@@ -85,8 +86,7 @@ const Card: FC = () => {
   let currentCardDisplay;
   if (showScore) {
     currentCardDisplay = <ScoreCard score={score} />;
-  }else{
-    
+  } else {
   }
 
   return (
