@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import Card from "./components/Card";
+import Card from "./components/Main";
 
 function App() {
   const [startQuiz, setStartQuiz] = useState<boolean>(false);

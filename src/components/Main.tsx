@@ -8,8 +8,9 @@ import { Question } from "./interfaces";
 import AnswerButtons from "./AnswerButtons";
 import ScoreCard from "./ScoreCard";
 import QuizCard from "./QuizCard";
+import Loading from "./Loading";
 
-const Card: FC = () => {
+const Main: FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
@@ -99,10 +100,11 @@ const Card: FC = () => {
         />
       );
     } else {
+      currentCardDisplay = <Loading />;
     }
   }
 
   return <div className="card-section">{currentCardDisplay}</div>;
 };
 
-export default Card;
+export default Main;
