@@ -7,6 +7,7 @@ import React, { FC, useState, useEffect, useMemo } from "react";
 import { Question } from "./interfaces";
 import AnswerButtons from "./AnswerButtons";
 import ScoreCard from "./ScoreCard";
+import QuizCard from "./QuizCard";
 
 const Card: FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -87,37 +88,21 @@ const Card: FC = () => {
   if (showScore) {
     currentCardDisplay = <ScoreCard score={score} />;
   } else {
+    if (loading) {
+      currentCardDisplay = (
+        <QuizCard
+          questions={questions}
+          currentQuestionIndex={currentQuestionIndex}
+          changeQuestion={changeQuestion}
+          displayScore={displayScore}
+          answersBtns={answersBtns}
+        />
+      );
+    } else {
+    }
   }
 
-  return (
-    <div className="card-section">
-      {showScore ? (
-        <div className="score-card">
-          <h2 className="score-header">Your score is:</h2>
-          <h3 className="score">{score}</h3>
-        </div>
-      ) : (
-        <div className="quiz-card">
-          <h3 className="question-header">
-            Question {currentQuestionIndex + 1} out of {questions.length}
-          </h3>
-          <p className="question">
-            {questions[currentQuestionIndex]?.question}
-          </p>
-          <div className="answer-section">{answersBtns}</div>
-          {currentQuestionIndex < questions.length - 1 ? (
-            <button className="quiz-btn" onClick={changeQuestion}>
-              Next Question
-            </button>
-          ) : (
-            <button className="quiz-btn" onClick={displayScore}>
-              Show Score
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
+  return <div className="card-section">{currentCardDisplay}</div>;
 };
 
 export default Card;
