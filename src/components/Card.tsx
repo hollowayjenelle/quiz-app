@@ -6,6 +6,7 @@
 import React, { FC, useState, useEffect, useMemo } from "react";
 import { Question } from "./interfaces";
 import AnswerButtons from "./AnswerButtons";
+import ScoreCard from "./ScoreCard";
 
 const Card: FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -80,6 +81,13 @@ const Card: FC = () => {
   }
 
   console.log(questions[currentQuestionIndex]?.correctAnswer);
+
+  let currentCardDisplay;
+  if (showScore) {
+    currentCardDisplay = <ScoreCard score={score} />;
+  }else{
+    
+  }
 
   return (
     <div className="card-section">
