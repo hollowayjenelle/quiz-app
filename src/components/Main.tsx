@@ -8,6 +8,7 @@ import { Question } from "./interfaces";
 import AnswerButtons from "./AnswerButtons";
 import ScoreCard from "./ScoreCard";
 import QuizCard from "./QuizCard";
+import axios from "axios";
 
 const Main: FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -15,7 +16,7 @@ const Main: FC = () => {
   const [score, setScore] = useState<number>(0);
   const [currentAnswer, setCurrentAnswer] = useState<string>("");
   const [showScore, setShowScore] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const incorrectAnswers = questions[currentQuestionIndex]?.incorrectAnswers;
   const correctAnswer = questions[currentQuestionIndex]?.correctAnswer;
@@ -23,13 +24,14 @@ const Main: FC = () => {
   const allAnswers = incorrectAnswers?.concat(correctAnswer);
 
   useEffect(() => {
-    setIsLoading(true)
-    fetch(
-      "https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy"
-    )
-      .then((response) => response.json())
-      .then((res) => setQuestions(res));
-      setIsLoading(false)
+    const getQuestions = async () => {
+      const result = await axios(
+        "https://the-trivia-api.com/api/questions?categories=music&limit=10&difficulty=easy"
+      );
+      setQuestions(result.data);
+      setIsLoading(false);
+    };
+    getQuestions();
   }, []);
 
   const shuffle = (arr: string[]) => {
@@ -96,7 +98,7 @@ const Main: FC = () => {
         changeQuestion={changeQuestion}
         displayScore={displayScore}
         answersBtns={answersBtns}
-        isLoading = {isLoading}
+        isLoading={isLoading}
       />
     );
   }
