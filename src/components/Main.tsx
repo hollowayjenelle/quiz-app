@@ -29,7 +29,7 @@ const Main: FC = () => {
     )
       .then((response) => response.json())
       .then((res) => setQuestions(res));
-    console.log("Questions loaded");
+    setLoading((prevVal) => !prevVal);
   }, []);
 
   const shuffle = (arr: string[]) => {
